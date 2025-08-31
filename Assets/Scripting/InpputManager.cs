@@ -7,6 +7,8 @@ public class InpputManager : MonoBehaviour
     InputSystem_Actions inputSystem_Actions;
 
     public Vector2 movementInput;
+    public float verticalInput;
+    public float horizontalInput;
 
     private void OnEnable()
     {
@@ -15,6 +17,8 @@ public class InpputManager : MonoBehaviour
             inputSystem_Actions = new InputSystem_Actions();
 
             inputSystem_Actions.Player.Move.performed += inputSystem_Actions => movementInput = inputSystem_Actions.ReadValue<Vector2>();
+
+            inputSystem_Actions.Player.Move.canceled += inputSystem_Actions => movementInput = Vector2.zero;
 
         }
 
@@ -25,5 +29,16 @@ public class InpputManager : MonoBehaviour
     private void OnDisable()
     {
         inputSystem_Actions.Disable();
+    }
+
+    public void HandleAllInputs()
+    {
+        HandleMovementInput();
+        //HandleActionInput
+    }
+    private void HandleMovementInput()
+    {
+        verticalInput = movementInput.y;
+        horizontalInput = movementInput.x;
     }
 }
