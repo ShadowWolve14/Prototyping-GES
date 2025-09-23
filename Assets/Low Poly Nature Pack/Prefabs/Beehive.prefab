@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4105871929560405365}
   - component: {fileID: 8346552598032553067}
   - component: {fileID: 6893817407915982165}
-  - component: {fileID: 393757305826299815}
+  - component: {fileID: 2189298945983961820}
   m_Layer: 0
   m_Name: Beehive
   m_TagString: Untagged
@@ -37912,8 +37912,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3845945283874525168}
   m_Mesh: {fileID: 0}
---- !u!64 &393757305826299815
-MeshCollider:
+--- !u!65 &2189298945983961820
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -37930,7 +37930,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.15, y: 0.15, z: 0.15}
+  m_Center: {x: 0, y: 0, z: 0}
