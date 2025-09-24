@@ -17,7 +17,7 @@ public class Projectile : MonoBehaviour
     //Gun Stats
     public float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
     public int magazineSize, bulletsPerTap;
-    public bool allowButtonHold, isReloading;
+    public bool isReloading;
     int bulletsleft, bulletShot;
 
     //bools
@@ -38,6 +38,7 @@ public class Projectile : MonoBehaviour
     private void OnEnable()
     {
         inputSystem_Actions = new InputSystem_Actions();
+        inputSystem_Actions.Enable();
     }
     private void Awake()
     {
@@ -59,20 +60,16 @@ public class Projectile : MonoBehaviour
     }
     private void MyInput()
     {
-        //Check if allowed to hold down button and take corresponding input
-        if (allowButtonHold)
-        {
-            //inputSystem_Actions.Player.Attack.performed += context => shooting = true;
-            shooting = Input.GetKey(KeyCode.Mouse0);
-        }
-        else
-        {
-            //inputSystem_Actions.Player.Attack.started += context => shooting = true;
-            shooting = Input.GetKeyDown(KeyCode.Mouse0);
-        }
+        
+      
+        inputSystem_Actions.Player.Attack.performed += context => shooting = true;
+        inputSystem_Actions.Player.Attack.canceled += context => shooting = false;
+            
+       
         //reloading
-        //inputSystem_Actions.Player.Jump.started += context => isReloading = true;
-        if (Input.GetKey(KeyCode.R) && bulletsleft < magazineSize && !reloading)
+        inputSystem_Actions.Player.Jump.performed += context => isReloading = true;
+        inputSystem_Actions.Player.Jump.canceled += context => isReloading = false;
+        if (isReloading && bulletsleft < magazineSize && !reloading)
         {
             Reload();
         }
