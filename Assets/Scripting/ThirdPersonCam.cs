@@ -16,7 +16,7 @@ public class ThirdPersonCam : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
-    private void Update()
+    private void FixedUpdate()
     {
         //Rotate Orientation
         Vector3 viewDir = player.position - new Vector3(transform.position.x, transform.position.y, transform.position.z);
@@ -25,7 +25,7 @@ public class ThirdPersonCam : MonoBehaviour
         //rotate player Object
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        Vector3 InputDir = -orientation.forward * verticalInput + -orientation.right * horizontalInput;
+        Vector3 InputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         if (InputDir != Vector3.zero)
         {
