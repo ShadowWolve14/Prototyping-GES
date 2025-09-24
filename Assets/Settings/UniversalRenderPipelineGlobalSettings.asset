@@ -59,9 +59,9 @@ MonoBehaviour:
       - rid: 1608696105482059779
       - rid: 1608696105482059780
       - rid: 1608696105482059781
-      - rid: 1472088273298653184
-      - rid: 1472088273298653185
-      - rid: 1472088273298653186
+      - rid: 1472088273298653394
+      - rid: 1472088273298653395
+      - rid: 1472088273298653396
     m_RuntimeSettings:
       m_List: []
   m_AssetVersion: 8
@@ -94,11 +94,11 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 1472088273298653184
+    - rid: 1472088273298653394
       type: {class: RenderingDebuggerRuntimeResources, ns: UnityEngine.Rendering, asm: Unity.RenderPipelines.Core.Runtime}
       data:
         m_version: 0
-    - rid: 1472088273298653185
+    - rid: 1472088273298653395
       type: {class: VrsRenderPipelineRuntimeResources, ns: UnityEngine.Rendering, asm: Unity.RenderPipelines.Core.Runtime}
       data:
         m_TextureComputeShader: {fileID: 7200000, guid: cacb30de6c40c7444bbc78cb0a81fd2a, type: 3}
@@ -125,7 +125,7 @@ MonoBehaviour:
           - {r: 0.5, g: 0, b: 0.5, a: 1}
           - {r: 0.5, g: 0.5, b: 0.5, a: 1}
           - {r: 0, g: 0, b: 1, a: 1}
-    - rid: 1472088273298653186
+    - rid: 1472088273298653396
       type: {class: LightmapSamplingSettings, ns: UnityEngine.Rendering, asm: Unity.RenderPipelines.Core.Runtime}
       data:
         m_Version: 1
