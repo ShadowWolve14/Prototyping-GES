@@ -39,19 +39,16 @@ public class EnemyAI : MonoBehaviour
 
         if (!playerInSightRange && !playerInAttackRange)
         {
-            Debug.Log("Status: Patroling");
             Patroling();
         }
 
         if (playerInSightRange && !playerInAttackRange)
         {
-            Debug.Log("Status: Chasing Player");
             ChasePlayer();
         }
 
         if (playerInSightRange && playerInAttackRange)
         {
-            Debug.Log("Status: Attacking Player");
             AttackPlayer();
         }
     }
