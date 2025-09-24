@@ -8,8 +8,7 @@ public class EnemyAI : MonoBehaviour
     public LayerMask whatIsGround, whatIsPlayer;
     public float health;
     public float projectileSpeed;
-    public float prjectileLifetime;
-    public float projectileUpwardForce;
+    public float projectileSpawnOffset;
 
     // Patroling
     public Vector3 walkPoint;
@@ -25,10 +24,14 @@ public class EnemyAI : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
+    // Geschwindigkeit für die Drehung
+    public float rotationSpeed = 10f;
+
     private void Awake()
     {
         player = GameObject.Find("Bee").transform;
         agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
     }
 
     private void Update()
@@ -53,6 +56,19 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    private void RotateTowards(Vector3 direction)
+    {
+        if (direction != Vector3.zero)
+        {
+            // Statt eine Drehung zu berechnen UND DANN zu spiegeln,
+            // berechnen wir direkt die Drehung für die entgegengesetzte Richtung (-direction).
+            // Das berücksichtigt automatisch die Neigung auf der X-Achse.
+            Quaternion targetRotation = Quaternion.LookRotation(-direction);
+
+            // Der Rest bleibt gleich: Flüssig zur neuen Drehung interpolieren.
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+        }
+    }
 
     private void Patroling()
     {
@@ -66,6 +82,7 @@ public class EnemyAI : MonoBehaviour
             agent.SetDestination(walkPoint);
         }
 
+        RotateTowards(agent.velocity.normalized);
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
         // Walkpoint reached
@@ -94,22 +111,25 @@ public class EnemyAI : MonoBehaviour
     private void ChasePlayer()
     {
         agent.SetDestination(player.position);
+
+        // NEU: Benutze den echten 3D-Vektor zum Spieler für die Ausrichtung.
+        // Genau wie in der AttackPlayer-Methode.
+        Vector3 directionToPlayer = player.position - transform.position;
+        RotateTowards(directionToPlayer.normalized);
     }
 
     private void AttackPlayer()
     {
-        // Make sure enemy doesn´t move
         agent.SetDestination(transform.position);
 
-        transform.LookAt(player);
+        Vector3 directionToPlayer = player.position - transform.position;
+        RotateTowards(directionToPlayer.normalized);
 
         if (!alreadyAttacked)
-        { 
-            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-
-            rb.AddForce(transform.forward * projectileSpeed, ForceMode.Impulse);
-            rb.AddForce(transform.up * projectileUpwardForce, ForceMode.Impulse);
-
+        {
+            Vector3 spawnPosition = transform.position - transform.forward * projectileSpawnOffset;
+            Rigidbody rb = Instantiate(projectile, spawnPosition, transform.rotation).GetComponent<Rigidbody>();
+            rb.AddForce(-rb.transform.forward * projectileSpeed, ForceMode.Impulse);
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
@@ -141,4 +161,5 @@ public class EnemyAI : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
     }
+
 }
