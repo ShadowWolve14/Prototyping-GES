@@ -27,7 +27,7 @@ public class Projectile : MonoBehaviour
 
 
     public Transform attackpoint;
-    public Transform targetpoint;
+    public Transform PlayerObj; // Referenz auf dein Spielerobjekt
     InputSystem_Actions inputSystem_Actions;
 
     //Graphics
@@ -47,6 +47,7 @@ public class Projectile : MonoBehaviour
     }
     private void Update()
     {
+        attackpoint.rotation = PlayerObj.rotation;
         MyInput();
 
 
@@ -93,10 +94,10 @@ public class Projectile : MonoBehaviour
     private void Shoot()
     {
         readyToShoot = false;
-        
+
 
         //direction of the bullet
-        Vector3 directionWithoutSpread = targetpoint.position-attackpoint.position;
+        Vector3 directionWithoutSpread = transform.forward;
 
         //Calculate spread
         float x = Random.Range(-spread, spread);
