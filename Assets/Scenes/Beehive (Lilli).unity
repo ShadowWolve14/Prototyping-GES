@@ -9325,6 +9325,10 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5339689370207626258, guid: 334f8486aec018c49a16b8faf41e322a, type: 3}
+      propertyPath: allowButtonHold
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5339689370207626258, guid: 334f8486aec018c49a16b8faf41e322a, type: 3}
       propertyPath: ammunitionDisplay
       value: 
       objectReference: {fileID: 1113412153}
